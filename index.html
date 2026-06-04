@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela Index - 快速建站</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #111118;
+            --bg-card: #16161f;
+            --bg-hover: #1e1e28;
+            --border: rgba(255,255,255,0.06);
+            --border-focus: rgba(255,255,255,0.12);
+            --text-primary: #f0f0f5;
+            --text-secondary: #8a8a9a;
+            --text-muted: #5a5a6a;
+            --accent: #6366f1;
+            --accent-hover: #818cf8;
+            --accent-glow: rgba(99,102,241,0.15);
+            --success: #22c55e;
+            --error: #ef4444;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 顶部导航 */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            background: rgba(10,10,15,0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .nav-brand svg {
+            width: 28px;
+            height: 28px;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 4px;
+        }
+
+        .nav-link {
+            padding: 8px 20px;
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: var(--bg-hover);
+        }
+
+        .nav-link.active {
+            color: var(--text-primary);
+            background: var(--bg-hover);
+        }
+
+        /* 主内容区 */
+        .main {
+            padding-top: 64px;
+            min-height: 100vh;
+        }
+
+        .page {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 48px 32px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 首页 Hero */
+        .hero {
+            text-align: center;
+            padding: 80px 0 60px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: var(--accent-glow);
+            border: 1px solid rgba(99,102,241,0.2);
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--accent-hover);
+            margin-bottom: 32px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #f0f0f5 0%, #8a8a9a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin: 0 auto 48px;
+            font-weight: 400;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .hero-cta:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+
+        .hero-cta svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* 特性卡片 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 80px;
+        }
+
+        .feature-card {
+            padding: 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            border-color: var(--border-focus);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-glow);
+            border-radius: var(--radius-sm);
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .feature-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* 上传区域 */
+        .upload-section {
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .upload-section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+
+        .upload-section .subtitle {
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 15px;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .domain-preview {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 18px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .domain-preview .domain-name {
+            color: var(--accent-hover);
+            font-weight: 600;
+        }
+
+        .upload-zone {
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-lg);
+            padding: 48px 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 24px;
+            position: relative;
+        }
+
+        .upload-zone:hover {
+            border-color: var(--accent);
+            background: var(--accent-glow);
+        }
+
+        .upload-zone.dragover {
+            border-color: var(--accent);
+            background: var(--accent-glow);
+        }
+
+        .upload-zone svg {
+            width: 48px;
+            height: 48px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .upload-zone h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .upload-zone p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .upload-zone input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-selected {
+            display: none;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            background: rgba(34,197,94,0.08);
+            border: 1px solid rgba(34,197,94,0.2);
+            border-radius: var(--radius-md);
+            margin-top: 16px;
+        }
+
+        .file-selected.show {
+            display: flex;
+        }
+
+        .file-selected svg {
+            width: 20px;
+            height: 20px;
+            color: var(--success);
+            flex-shrink: 0;
+        }
+
+        .file-selected span {
+            font-size: 14px;
+            color: var(--text-primary);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .btn-upload {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 24px;
+            font-family: inherit;
+        }
+
+        .btn-upload:hover:not(:disabled) {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+
+        .btn-upload:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* 域名列表 */
+        .domains-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .domains-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .domain-count {
+            font-size: 13px;
+            color: var(--text-secondary);
+            background: var(--bg-card);
+            padding: 6px 14px;
+            border-radius: 100px;
+        }
+
+        .domain-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .domain-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+        }
+
+        .domain-item:hover {
+            border-color: var(--border-focus);
+            background: var(--bg-hover);
+        }
+
+        .domain-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .domain-favicon {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-primary);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+            border: 1px solid var(--border);
+        }
+
+        .domain-meta h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .domain-meta a {
+            color: var(--text-secondary);
+            font-size: 13px;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .domain-meta a:hover {
+            color: var(--accent-hover);
+        }
+
+        .domain-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-icon:hover {
+            color: var(--text-primary);
+            border-color: var(--border-focus);
+        }
+
+        .btn-icon svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state svg {
+            width: 64px;
+            height: 64px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+        }
+
+        /* 我的页面 */
+        .profile-card {
+            max-width: 480px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent) 0%, #a855f7 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .profile-card h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .profile-card .email {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 32px;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat {
+            padding: 16px;
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-danger {
+            width: 100%;
+            padding: 14px;
+            background: transparent;
+            color: var(--error);
+            border: 1px solid rgba(239,68,68,0.2);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .btn-danger:hover {
+            background: rgba(239,68,68,0.08);
+            border-color: rgba(239,68,68,0.3);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            padding: 14px 28px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 1000;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast.success {
+            border-color: rgba(34,197,94,0.3);
+            background: rgba(34,197,94,0.08);
+            color: var(--success);
+        }
+
+        .toast.error {
+            border-color: rgba(239,68,68,0.3);
+            background: rgba(239,68,68,0.08);
+            color: var(--error);
+        }
+
+        /* 成功弹窗 */
+        .success-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .success-modal.show {
+            display: flex;
+        }
+
+        .success-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+            max-width: 440px;
+            width: 100%;
+            text-align: center;
+            animation: scaleIn 0.3s ease;
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(34,197,94,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            color: var(--success);
+        }
+
+        .success-icon svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .success-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .success-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .success-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            margin-bottom: 24px;
+        }
+
+        .success-link input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 14px;
+            outline: none;
+        }
+
+        .success-link .btn-icon {
+            flex-shrink: 0;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .nav {
+                padding: 0 16px;
+            }
+            
+            .page {
+                padding: 24px 16px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 导航 -->
+    <nav class="nav">
+        <a href="#" class="nav-brand" onclick="showPage('home')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+            Tela Index
+        </a>
+        <div class="nav-links">
+            <button class="nav-link active" onclick="showPage('home')" data-page="home">首页</button>
+            <button class="nav-link" onclick="showPage('domains')" data-page="domains">域名</button>
+            <button class="nav-link" onclick="showPage('profile')" data-page="profile">我的</button>
+        </div>
+    </nav>
+
+    <!-- 主内容 -->
+    <main class="main">
+
+        <!-- 首页 -->
+        <div class="page active" id="page-home">
+            <div class="hero">
+                <div class="hero-badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    免费部署，即时生效
+                </div>
+                <h1>几秒钟部署<br>你的网站</h1>
+                <p>上传 index.html，输入站点名称，即刻获得专属域名。无需服务器，无需配置。</p>
+                <button class="hero-cta" onclick="showPage('domains')">
+                    开始部署
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/>
+                            <polyline points="13 2 13 9 20 9"/>
+                        </svg>
+                    </div>
+                    <h3>单文件上传</h3>
+                    <p>只需上传一个 index.html 文件，无需复杂配置，即刻生成可访问的网站。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="2" y1="12" x2="22" y2="12"/>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                    </div>
+                    <h3>自定义域名</h3>
+                    <p>每个站点拥有独立子域名，基于当前页面路径自动分配，格式统一规范。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                    </div>
+                    <h3>本地持久化</h3>
+                    <p>所有数据存储在浏览器本地，刷新不丢失。支持导出导入，数据自主掌控。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 域名/部署页面 -->
+        <div class="page" id="page-domains">
+            <div class="upload-section">
+                <h2>部署新站点</h2>
+                <p class="subtitle">输入站点名称并上传 index.html 文件</p>
+
+                <div class="form-group">
+                    <label class="form-label">站点名称</label>
+                    <input type="text" class="form-input" id="siteName" placeholder="例如：my-portfolio" oninput="updateDomainPreview()">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">预览域名</label>
+                    <div class="domain-preview">
+                        <span id="domainPrefix"></span>
+                        <span class="domain-name" id="domainName">your-site</span>
+                    </div>
+                </div>
+
+                <div class="upload-zone" id="uploadZone">
+                    <input type="file" id="fileInput" accept=".html" onchange="handleFileSelect(event)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="17 8 12 3 7 8"/>
+                        <line x1="12" y1="3" x2="12" y2="15"/>
+                    </svg>
+                    <h4>点击或拖拽上传 index.html</h4>
+                    <p>仅支持 .html 文件，大小不超过 5MB</p>
+                </div>
+
+                <div class="file-selected" id="fileSelected">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span id="fileName">index.html</span>
+                </div>
+
+                <button class="btn-upload" id="btnUpload" onclick="deploySite()" disabled>
+                    部署站点
+                </button>
+            </div>
+
+            <div style="margin-top: 60px;">
+                <div class="domains-header">
+                    <h2>我的站点</h2>
+                    <span class="domain-count" id="domainCount">0 个站点</span>
+                </div>
+                <div class="domain-list" id="domainList">
+                    <!-- 动态生成 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 我的页面 -->
+        <div class="page" id="page-profile">
+            <div class="profile-card">
+                <div class="profile-avatar" id="profileAvatar">U</div>
+                <h2 id="profileName">User</h2>
+                <p class="email" id="profileEmail">user@tela.local</p>
+                
+                <div class="profile-stats">
+                    <div class="stat">
+                        <div class="stat-value" id="statSites">0</div>
+                        <div class="stat-label">站点</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="statStorage">0</div>
+                        <div class="stat-label">存储 (KB)</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="statViews">0</div>
+                        <div class="stat-label">访问</div>
+                    </div>
+                </div>
+
+                <button class="btn-danger" onclick="clearAllData()">
+                    清除所有数据
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- 部署成功弹窗 -->
+    <div class="success-modal" id="successModal" onclick="closeSuccessModal(event)">
+        <div class="success-card" onclick="event.stopPropagation()">
+            <div class="success-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+            </div>
+            <h3>部署成功</h3>
+            <p>你的站点已上线，可通过以下链接访问</p>
+            <div class="success-link">
+                <input type="text" id="successLink" readonly>
+                <button class="btn-icon" onclick="copySuccessLink()" title="复制">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                    </svg>
+                </button>
+            </div>
+            <button class="btn-upload" onclick="closeSuccessModal()">完成</button>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // 数据存储
+        let sites = JSON.parse(localStorage.getItem('tela_sites')) || {};
+        let currentUser = localStorage.getItem('tela_user') || generateUser();
+        let selectedFile = null;
+        let selectedFileName = '';
+
+        // 生成用户标识
+        function generateUser() {
+            const user = 'user_' + Math.random().toString(36).substr(2, 8);
+            localStorage.setItem('tela_user', user);
+            return user;
+        }
+
+        // 获取当前域名前缀（自动识别）
+        function getDomainPrefix() {
+            const origin = window.location.origin;
+            const pathname = window.location.pathname;
+            // 去掉末尾的文件名，保留目录路径
+            const basePath = pathname.substring(0, pathname.lastIndexOf('/') + 1);
+            return origin + basePath;
+        }
+
+        // 页面切换
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            
+            document.getElementById('page-' + page).classList.add('active');
+            document.querySelector('.nav-link[data-page="' + page + '"]').classList.add('active');
+            
+            if (page === 'domains') {
+                updateDomainPreview();
+                renderDomainList();
+            }
+            if (page === 'profile') {
+                updateProfile();
+            }
+        }
+
+        // 更新域名预览
+        function updateDomainPreview() {
+            const name = document.getElementById('siteName').value.trim().toLowerCase();
+            const prefix = getDomainPrefix();
+            document.getElementById('domainPrefix').textContent = prefix;
+            document.getElementById('domainName').textContent = name || 'your-site';
+        }
+
+        // 文件选择
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            if (!file.name.endsWith('.html')) {
+                showToast('请选择 .html 文件', 'error');
+                return;
+            }
+            
+            if (file.size > 5 * 1024 * 1024) {
+                showToast('文件大小不能超过 5MB', 'error');
+                return;
+            }
+            
+            selectedFile = file;
+            selectedFileName = file.name;
+            
+            document.getElementById('fileSelected').classList.add('show');
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('btnUpload').disabled = !document.getElementById('siteName').value.trim();
+        }
+
+        // 拖拽上传
+        const uploadZone = document.getElementById('uploadZone');
+        
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('dragover');
+        });
+        
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('dragover');
+        });
+        
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file) {
+                const input = document.getElementById('fileInput');
+                const dt = new DataTransfer();
+                dt.items.add(file);
+                input.files = dt.files;
+                handleFileSelect({ target: input });
+            }
+        });
+
+        // 站点名称输入监听
+        document.getElementById('siteName').addEventListener('input', function() {
+            document.getElementById('btnUpload').disabled = !this.value.trim() || !selectedFile;
+        });
+
+        // 部署站点
+        function deploySite() {
+            const name = document.getElementById('siteName').value.trim().toLowerCase();
+            
+            if (!name) {
+                showToast('请输入站点名称', 'error');
+                return;
+            }
+            
+            if (!/^[a-z0-9-]+$/.test(name)) {
+                showToast('名称只能包含小写字母、数字和连字符', 'error');
+                return;
+            }
+            
+            if (sites[name]) {
+                showToast('该名称已被使用', 'error');
+                return;
+            }
+            
+            if (!selectedFile) {
+                showToast('请选择文件', 'error');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const content = e.target.result;
+                
+                sites[name] = {
+                    name: name,
+                    content: content,
+                    size: selectedFile.size,
+                    created: Date.now(),
+                    views: 0
+                };
+                
+                localStorage.setItem('tela_sites', JSON.stringify(sites));
+                
+                // 显示成功弹窗
+                const link = getDomainPrefix() + '?site=' + name;
+                document.getElementById('successLink').value = link;
+                document.getElementById('successModal').classList.add('show');
+                
+                // 重置表单
+                document.getElementById('siteName').value = '';
+                document.getElementById('fileSelected').classList.remove('show');
+                selectedFile = null;
+                document.getElementById('btnUpload').disabled = true;
+                updateDomainPreview();
+            };
+            reader.readAsText(selectedFile);
+        }
+
+        // 渲染域名列表
+        function renderDomainList() {
+            const list = document.getElementById('domainList');
+            const keys = Object.keys(sites);
+            
+            document.getElementById('domainCount').textContent = keys.length + ' 个站点';
+            
+            if (keys.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/>
+                            <polyline points="13 2 13 9 20 9"/>
+                        </svg>
+                        <h3>暂无站点</h3>
+                        <p>上传你的第一个 index.html 文件开始部署</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            list.innerHTML = '';
+            keys.sort((a, b) => sites[b].created - sites[a].created).forEach(key => {
+                const site = sites[key];
+                const link = getDomainPrefix() + '?site=' + key;
+                
+                const item = document.createElement('div');
+                item.className = 'domain-item';
+                item.innerHTML = `
+                    <div class="domain-info">
+                        <div class="domain-favicon">${key[0].toUpperCase()}</div>
+                        <div class="domain-meta">
+                            <h4>${key}</h4>
+                            <a href="${link}" target="_blank">${link}</a>
+                        </div>
+                    </div>
+                    <div class="domain-actions">
+                        <button class="btn-icon" onclick="previewSite('${key}')" title="预览">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </button>
+                        <button class="btn-icon" onclick="copySiteLink('${key}')" title="复制链接">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                            </svg>
+                        </button>
+                        <button class="btn-icon" onclick="deleteSite('${key}')" title="删除" style="color: var(--error);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="3 6 5 6 21 6"/>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                            </svg>
+                        </button>
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        // 预览站点
+        function previewSite(name) {
+            const site = sites[name];
+            if (!site) return;
+            
+            // 在新标签页打开站点内容
+            const blob = new Blob([site.content], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            window.open(url, '_blank');
+            
+            // 更新访问计数
+            sites[name].views++;
+            localStorage.setItem('tela_sites', JSON.stringify(sites));
+        }
+
+        // 复制站点链接
+        function copySiteLink(name) {
+            const link = getDomainPrefix() + '?site=' + name;
+            navigator.clipboard.writeText(link).then(() => {
+                showToast('链接已复制');
+            });
+        }
+
+        // 删除站点
+        function deleteSite(name) {
+            if (!confirm('确定删除站点 "' + name + '" 吗？')) return;
+            
+            delete sites[name];
+            localStorage.setItem('tela_sites', JSON.stringify(sites));
+            renderDomainList();
+            showToast('站点已删除');
+        }
+
+        // 复制成功链接
+        function copySuccessLink() {
+            const link = document.getElementById('successLink').value;
+            navigator.clipboard.writeText(link).then(() => {
+                showToast('链接已复制');
+            });
+        }
+
+        // 关闭成功弹窗
+        function closeSuccessModal(event) {
+            if (!event || event.target === document.getElementById('successModal')) {
+                document.getElementById('successModal').classList.remove('show');
+                renderDomainList();
+            }
+        }
+
+        // 更新个人资料
+        function updateProfile() {
+            const keys = Object.keys(sites);
+            let totalSize = 0;
+            let totalViews = 0;
+            
+            keys.forEach(k => {
+                totalSize += sites[k].size;
+                totalViews += sites[k].views || 0;
+            });
+            
+            document.getElementById('profileName').textContent = currentUser;
+            document.getElementById('profileEmail').textContent = currentUser + '@tela.local';
+            document.getElementById('profileAvatar').textContent = currentUser[0].toUpperCase();
+            document.getElementById('statSites').textContent = keys.length;
+            document.getElementById('statStorage').textContent = Math.round(totalSize / 1024);
+            document.getElementById('statViews').textContent = totalViews;
+        }
+
+        // 清除所有数据
+        function clearAllData() {
+            if (!confirm('确定清除所有数据吗？此操作不可恢复。')) return;
+            
+            localStorage.removeItem('tela_sites');
+            localStorage.removeItem('tela_user');
+            sites = {};
+            currentUser = generateUser();
+            
+            showToast('所有数据已清除');
+            updateProfile();
+            renderDomainList();
+        }
+
+        // Toast 提示
+        function showToast(message, type) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast ' + (type || '');
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // 页面加载时检查 URL 参数
+        window.addEventListener('load', function() {
+            const params = new URLSearchParams(window.location.search);
+            const siteName = params.get('site');
+            
+            if (siteName && sites[siteName]) {
+                // 访问站点模式：直接显示站点内容
+                document.open();
+                document.write(sites[siteName].content);
+                document.close();
+                return;
+            }
+            
+            // 正常模式：显示 Tela Index 界面
+            updateDomainPreview();
+            
+            // 如果有站点数据，默认显示域名页面
+            if (Object.keys(sites).length > 0) {
+                showPage('domains');
+            }
+        });
+    </script>
+</body>
+</html>
